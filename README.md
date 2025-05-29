@@ -44,19 +44,5 @@ I built two programs:
 
 ## 📐 Architecture Diagram
 
-```mermaid
-flowchart TB
-  subgraph Coordinator
-    C0[Initialize mapTasks & reduceTasks]
-    C1[RPC: RequestTask] --> Dispatch(Map/Reduce/NoTask/Exit)
-    C2[RPC: ReportTask]  --> Update status & check phase
-  end
+![Architecture Diagram](media/lab1.png)
 
-  subgraph Worker
-    W0[Loop]
-    W0 --> |RequestTask| C1
-    C1 --> |MapTask| W1[doMapTask] --> |ReportTask| C2
-    C1 --> |ReduceTask| W2[doReduceTask] --> |ReportTask| C2
-    C1 --> |NoTask| W3[Sleep 1s]
-    C1 --> |ExitTask| W4[Exit]
-  end
